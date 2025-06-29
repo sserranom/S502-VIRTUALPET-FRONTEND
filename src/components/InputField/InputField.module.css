@@ -1,0 +1,38 @@
+/* src/components/InputField/InputField.module.css */
+.inputGroup {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9em;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que padding no aumente el ancho total */
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  .inputError {
+    border-color: #dc3545;
+  }
+  
+  .errorMessage {
+    color: #dc3545;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block;
+  }

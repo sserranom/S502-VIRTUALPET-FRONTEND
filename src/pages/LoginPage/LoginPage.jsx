@@ -1,0 +1,90 @@
+// src/pages/LoginPage/LoginPage.jsx
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import InputField from "../../components/InputField/InputField";
+import Button from "../../components/Button/Button";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import styles from "./LoginPage.module.css";
+
+// Esquema de validación con Yup
+const loginSchema = Yup.object().shape({
+  username: Yup.string().required("El nombre de usuario es requerido"),
+  password: Yup.string().required("La contraseña es requerida"),
+});
+
+const LoginPage = () => {
+  const { login, isAuthenticated, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Redirigir si ya está autenticado
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {
+      setErrorMessage(""); // Limpiar mensajes de error previos
+      const { success, error } = await login(values.username, values.password);
+      if (success) {
+        // La redirección ocurre en el useEffect una vez que isAuthenticated sea true
+      } else {
+        setErrorMessage(error || "Credenciales inválidas. Inténtalo de nuevo.");
+      }
+    },
+  });
+
+  // Si el AuthProvider aún está cargando el estado de autenticación, muestra un spinner
+  if (authLoading) {
+    return <LoadingSpinner />;
+  }
+
+  return (
+    <div className={styles.loginContainer}>
+      <h2>Iniciar Sesión</h2>
+      <form onSubmit={formik.handleSubmit}>
+        <InputField
+          label="Nombre de Usuario"
+          name="username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.username && formik.errors.username}
+        />
+        <InputField
+          label="Contraseña"
+          name="password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.password && formik.errors.password}
+        />
+
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+
+        <Button type="submit" disabled={formik.isSubmitting || authLoading}>
+          {formik.isSubmitting ? <LoadingSpinner /> : "Login"}
+        </Button>
+      </form>
+      <p className={styles.signupText}>
+        ¿No tienes cuenta?{" "}
+        <a onClick={() => navigate("/register")} className={styles.link}>
+          Regístrate aquí
+        </a>
+      </p>
+    </div>
+  );
+};
+
+export default LoginPage;

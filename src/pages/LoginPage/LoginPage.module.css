@@ -1,0 +1,15 @@
+/* src/pages/LoginPage/LoginPage.module.css */
+.loginContainer {
+    padding: 20px;
+  }
+  
+  .signupText {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .link {
+    font-weight: bold;
+  }

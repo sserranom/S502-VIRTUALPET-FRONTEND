@@ -1,0 +1,23 @@
+/* src/pages/RegisterPage/RegisterPage.module.css */
+.registerContainer {
+    padding: 20px;
+  }
+  
+  .loginText {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .successMessage {
+    color: #28a745;
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .link {
+    font-weight: bold;
+  }
