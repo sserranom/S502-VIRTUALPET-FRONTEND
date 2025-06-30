@@ -1,31 +1,25 @@
-// src/contexts/AuthContext.jsx
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { loginUser, registerUser } from "../api/auth";
-import { jwtDecode } from "jwt-decode"; // Para decodificar JWTs
+import { jwtDecode } from "jwt-decode"; 
 
-// Crea el contexto
+
 const AuthContext = createContext(null);
 
-/**
- * Provee el estado y las funciones de autenticación a los componentes hijos.
- * Maneja el token JWT en localStorage y la decodificación del usuario.
- */
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Contiene { username, roles, permissions }
+  const [user, setUser] = useState(null); 
   const [token, setToken] = useState(localStorage.getItem("jwt_token"));
-  const [loading, setLoading] = useState(true); // Para saber si estamos cargando el estado inicial de auth
+  const [loading, setLoading] = useState(true); 
 
-  // Efecto para inicializar el estado del usuario desde el token guardado
+ 
   useEffect(() => {
     const initializeAuth = async () => {
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
-          // Verificar expiración del token (exp está en segundos, Date.now() en milisegundos)
           if (decodedToken.exp * 1000 > Date.now()) {
             setUser({
               username: decodedToken.sub,
-              // Asume que las autoridades se guardan como una cadena separada por comas en el claim 'authorities'
               roles: decodedToken.authorities
                 ? decodedToken.authorities
                     .split(",")
@@ -39,30 +33,26 @@ export const AuthProvider = ({ children }) => {
                 : [],
             });
           } else {
-            logout(); // Token expirado, cierra sesión
+            logout(); 
           }
         } catch (error) {
           console.error("Error al decodificar o validar el token:", error);
-          logout(); // Token inválido, cierra sesión
+          logout(); 
         }
       }
-      setLoading(false); // La inicialización ha terminado
+      setLoading(false); 
     };
 
     initializeAuth();
-  }, [token]); // Depende solo del token, para reaccionar si cambia
+  }, [token]); 
 
-  /**
-   * Intenta iniciar sesión con el nombre de usuario y la contraseña.
-   * Guarda el token si es exitoso.
-   */
   const login = async (username, password) => {
     setLoading(true);
     try {
       const response = await loginUser(username, password);
       const newJwtToken = response.data.jwt;
       localStorage.setItem("jwt_token", newJwtToken);
-      setToken(newJwtToken); // Esto disparará el useEffect para decodificar el nuevo token
+      setToken(newJwtToken); 
       return { success: true };
     } catch (error) {
       setLoading(false);
@@ -77,17 +67,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  /**
-   * Intenta registrar un nuevo usuario.
-   * Guarda el token si es exitoso (asume que el registro también loguea).
-   */
   const register = async (username, password, roles) => {
     setLoading(true);
     try {
       const response = await registerUser(username, password, roles);
       const newJwtToken = response.data.jwt;
       localStorage.setItem("jwt_token", newJwtToken);
-      setToken(newJwtToken); // Loguea al usuario automáticamente al registrarse
+      setToken(newJwtToken); 
       return { success: true };
     } catch (error) {
       setLoading(false);
@@ -102,10 +88,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  /**
-   * Cierra la sesión del usuario.
-   * Elimina el token de localStorage.
-   */
+
   const logout = () => {
     localStorage.removeItem("jwt_token");
     setToken(null);
@@ -113,14 +96,13 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  // Valor exportado por el contexto
   const authContextValue = {
     user,
-    isAuthenticated: !!user, // Booleano que indica si hay un usuario logueado
+    isAuthenticated: !!user, 
     login,
     register,
     logout,
-    loading, // Para mostrar un spinner mientras se carga el estado de autenticación
+    loading, 
   };
 
   return (
@@ -130,7 +112,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para consumir el contexto fácilmente
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

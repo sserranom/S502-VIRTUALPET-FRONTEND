@@ -1,4 +1,4 @@
-// src/pages/RegisterPage/RegisterPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./RegisterPage.module.css";
 
-// Esquema de validación con Yup para el registro
 const registerSchema = Yup.object().shape({
   username: Yup.string()
     .required("El nombre de usuario es requerido")
@@ -28,7 +27,6 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard", { replace: true });
@@ -40,15 +38,13 @@ const RegisterPage = () => {
       username: "",
       password: "",
       confirmPassword: "",
-      // Puedes añadir un campo para seleccionar roles si quieres que el usuario los elija
-      // roles: ['USER'], // Por defecto, asigna el rol USER
+  
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       setErrorMessage("");
       setSuccessMessage("");
-      // Por simplicidad, asignamos el rol 'USER' por defecto.
-      // Puedes modificar esto para permitir al usuario seleccionar roles.
+
       const defaultRoles = ["USER"];
 
       const { success, error } = await register(
@@ -58,7 +54,7 @@ const RegisterPage = () => {
       );
       if (success) {
         setSuccessMessage("¡Registro exitoso! Redirigiendo...");
-        // La redirección ocurre en el useEffect una vez que isAuthenticated sea true
+    
       } else {
         setErrorMessage(
           error || "Hubo un error en el registro. Inténtalo de nuevo."
@@ -67,7 +63,6 @@ const RegisterPage = () => {
     },
   });
 
-  // Si el AuthProvider aún está cargando el estado de autenticación, muestra un spinner
   if (authLoading) {
     return <LoadingSpinner />;
   }

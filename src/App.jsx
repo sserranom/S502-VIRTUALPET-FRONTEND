@@ -13,6 +13,8 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner"; // Para el estado inicial
 import "./App.css"; // Si tienes estilos específicos de App
 
+
+
 // Componente para proteger rutas
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();

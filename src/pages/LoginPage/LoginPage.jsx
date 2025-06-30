@@ -1,4 +1,4 @@
-// src/pages/LoginPage/LoginPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./LoginPage.module.css";
 
-// Esquema de validación con Yup
 const loginSchema = Yup.object().shape({
   username: Yup.string().required("El nombre de usuario es requerido"),
   password: Yup.string().required("La contraseña es requerida"),
@@ -20,7 +19,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Redirigir si ya está autenticado
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard", { replace: true });
@@ -34,17 +32,15 @@ const LoginPage = () => {
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-      setErrorMessage(""); // Limpiar mensajes de error previos
+      setErrorMessage(""); 
       const { success, error } = await login(values.username, values.password);
       if (success) {
-        // La redirección ocurre en el useEffect una vez que isAuthenticated sea true
       } else {
         setErrorMessage(error || "Credenciales inválidas. Inténtalo de nuevo.");
       }
     },
   });
 
-  // Si el AuthProvider aún está cargando el estado de autenticación, muestra un spinner
   if (authLoading) {
     return <LoadingSpinner />;
   }

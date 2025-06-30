@@ -47,8 +47,8 @@
     border-radius: 5px;
     text-align: left;
     overflow-x: auto;
-    white-space: pre-wrap; /* Para que el texto largo se ajuste */
-    word-wrap: break-word; /* Para que las palabras largas se rompan */
+    white-space: pre-wrap;
+    word-wrap: break-word; 
   }
   
   .loading {
