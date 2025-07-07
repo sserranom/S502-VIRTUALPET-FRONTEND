@@ -1,6 +1,32 @@
 
-.loginContainer {
+/* .loginContainer {
     padding: 20px;
+  } */
+  .loginContainer {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(8px); 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+  }
+
+  form {  
+    background-color: transparent !important;
+  }
+
+  input{
+    background-color: transparent;
+    border: none;
+  }
+
+  body {
+    background-image: url('/assets/fondo_login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   
   .signupText {
@@ -13,3 +39,4 @@
   .link {
     font-weight: bold;
   }
+
