@@ -3,23 +3,29 @@
     padding: 20px;
   } */
   .loginContainer {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(2, 22, 22, 0.445);
     padding: 40px;
     border-radius: 12px;
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(8px); 
+    /* backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(8px);  */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     margin: auto;
   }
 
-  form {  
-    background-color: transparent !important;
+  .formStyles {  
+    background-color: transparent;
   }
 
   input{
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.9);
     border: none;
+    color: #666;
+  }
+
+  label{
+    color: aliceblue !important;
+    font-size:medium !important;
   }
 
   body {
@@ -29,14 +35,22 @@
     background-repeat: no-repeat;
   }
   
-  .signupText {
+  .signupTextPer{
     text-align: center;
     margin-top: 20px;
-    font-size: 0.9em;
-    color: #666;
+    font-size: 1em;
+    color: #bebebe;
   }
   
   .link {
     font-weight: bold;
+    letter-spacing: 0.1px;
+    color: rgb(56, 56, 255);
+  } 
+
+  .loginText{
+    color: white;
   }
+
+ 
 

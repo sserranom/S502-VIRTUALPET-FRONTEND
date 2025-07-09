@@ -10,8 +10,8 @@ import * as Yup from "yup";
 import styles from "./LoginPage.module.css";
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string().required("El nombre de usuario es requerido"),
-  password: Yup.string().required("La contraseña es requerida"),
+  username: Yup.string().required("Username is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const LoginPage = () => {
@@ -36,7 +36,7 @@ const LoginPage = () => {
       const { success, error } = await login(values.username, values.password);
       if (success) {
       } else {
-        setErrorMessage(error || "Credenciales inválidas. Inténtalo de nuevo.");
+        setErrorMessage(error || "Invalid credentials. Please try again.");
       }
     },
   });
@@ -47,10 +47,10 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={formik.handleSubmit}>
+      <h2 className={styles.loginText}>Login</h2>
+      <form className={styles.formStyles} onSubmit={formik.handleSubmit}>
         <InputField
-          label="Nombre de Usuario"
+          label="Username"
           name="username"
           value={formik.values.username}
           onChange={formik.handleChange}
@@ -58,7 +58,7 @@ const LoginPage = () => {
           error={formik.touched.username && formik.errors.username}
         />
         <InputField
-          label="Contraseña"
+          label="Password"
           name="password"
           type="password"
           value={formik.values.password}
@@ -73,7 +73,7 @@ const LoginPage = () => {
           {formik.isSubmitting ? <LoadingSpinner /> : "Login"}
         </Button>
       </form>
-      <p className={styles.signupText}>
+      <p className={styles.signupTextPer}>
         ¿No tienes cuenta?{" "}
         <a onClick={() => navigate("/register")} className={styles.link}>
           Regístrate aquí
