@@ -74,9 +74,9 @@ const LoginPage = () => {
         </Button>
       </form>
       <p className={styles.signupTextPer}>
-        ¿No tienes cuenta?{" "}
+        Don't have an account?{" "}
         <a onClick={() => navigate("/register")} className={styles.link}>
-          Regístrate aquí
+          Register here
         </a>
       </p>
     </div>

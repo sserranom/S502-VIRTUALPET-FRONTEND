@@ -11,14 +11,14 @@ import styles from "./RegisterPage.module.css";
 
 const registerSchema = Yup.object().shape({
   username: Yup.string()
-    .required("El nombre de usuario es requerido")
-    .min(3, "El nombre de usuario debe tener al menos 3 caracteres"),
+    .required("Username is required")
+    .min(3, "The username must be at least 3 characters long."),
   password: Yup.string()
-    .required("La contraseña es requerida")
-    .min(6, "La contraseña debe tener al menos 6 caracteres"),
+    .required("Password is required")
+    .min(6, "The password must be at least 6 characters long."),
   confirmPassword: Yup.string()
-    .required("Confirma tu contraseña")
-    .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden"),
+    .required("Confirm your password")
+    .oneOf([Yup.ref("password"), null], "Passwords do not match"),
 });
 
 const RegisterPage = () => {
@@ -53,11 +53,11 @@ const RegisterPage = () => {
         defaultRoles
       );
       if (success) {
-        setSuccessMessage("¡Registro exitoso! Redirigiendo...");
+        setSuccessMessage("Registration successful! Redirecting...");
     
       } else {
         setErrorMessage(
-          error || "Hubo un error en el registro. Inténtalo de nuevo."
+          error || "There was an error during registration. Please try again."
         );
       }
     },
@@ -69,10 +69,10 @@ const RegisterPage = () => {
 
   return (
     <div className={styles.registerContainer}>
-      <h2>Registrarse</h2>
-      <form onSubmit={formik.handleSubmit}>
+      <h2>Register</h2>
+      <form onSubmit={formik.handleSubmit} className={styles.formRegister}>
         <InputField
-          label="Nombre de Usuario"
+          label="Username"
           name="username"
           value={formik.values.username}
           onChange={formik.handleChange}
@@ -80,7 +80,7 @@ const RegisterPage = () => {
           error={formik.touched.username && formik.errors.username}
         />
         <InputField
-          label="Contraseña"
+          label="Password"
           name="password"
           type="password"
           value={formik.values.password}
@@ -89,7 +89,7 @@ const RegisterPage = () => {
           error={formik.touched.password && formik.errors.password}
         />
         <InputField
-          label="Confirmar Contraseña"
+          label="Confirm Password"
           name="confirmPassword"
           type="password"
           value={formik.values.confirmPassword}
@@ -106,13 +106,13 @@ const RegisterPage = () => {
         )}
 
         <Button type="submit" disabled={formik.isSubmitting || authLoading}>
-          {formik.isSubmitting ? <LoadingSpinner /> : "Registrarse"}
+          {formik.isSubmitting ? <LoadingSpinner /> : "Register"}
         </Button>
       </form>
       <p className={styles.loginText}>
-        ¿Ya tienes cuenta?{" "}
+        Already have an account?{" "}
         <a onClick={() => navigate("/login")} className={styles.link}>
-          Inicia sesión aquí
+          Sign in here
         </a>
       </p>
     </div>

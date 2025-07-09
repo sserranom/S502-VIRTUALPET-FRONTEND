@@ -21,3 +21,14 @@
   .link {
     font-weight: bold;
   }
+
+  .formRegister{
+    background-color:rgba(31, 30, 30, 0.411);
+  }
+
+  .loginText{
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1em;
+    color: #ffffff;
+  }
