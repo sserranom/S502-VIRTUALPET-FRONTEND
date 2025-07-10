@@ -1,5 +1,94 @@
 /* src/pages/DashboardPage/DashboardPage.module.css */
+
 .dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f2f5; /* Fondo más claro para el dashboard */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.dashboardContainer h2 {
+  color: #007bff;
+  margin-bottom: 10px;
+  font-size: 2.2em;
+}
+
+.welcomeMessage {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.petCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+  gap: 25px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo para la cuadrícula */
+  margin-bottom: 30px;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.loadingContainer p {
+  margin-top: 15px;
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 1em;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #ffe3e6;
+  border: 1px solid #dc3545;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.noPetsMessage {
+  font-size: 1.1em;
+  color: #888;
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.dashboardActions {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.logoutButton {
+  background-color: #6c757d; /* Color para el botón de cerrar sesión */
+}
+
+.logoutButton:hover {
+  background-color: #5a6268;
+}
+
+
+
+
+/* .dashboardContainer {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 8px;
@@ -55,4 +144,4 @@
     text-align: center;
     font-size: 1.2em;
     color: #666;
-  }
+  } */
