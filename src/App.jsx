@@ -10,10 +10,9 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext"; // Importa el Au
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import CreatePetPage from "./pages/CreatePetPage/CreatePetPage"; // Importa la nueva página
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner"; // Para el estado inicial
 import "./App.css"; // Si tienes estilos específicos de App
-
-
 
 // Componente para proteger rutas
 const PrivateRoute = ({ children }) => {
@@ -47,15 +46,15 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          {/* Aquí puedes añadir más rutas protegidas */}
-          {/* <Route
-            path="/profile"
+          <Route // Nueva ruta para crear mascota
+            path="/create-pet"
             element={
               <PrivateRoute>
-                <ProfilePage />
+                <CreatePetPage />
               </PrivateRoute>
             }
-          /> */}
+          />
+          {/* Aquí puedes añadir más rutas protegidas */}
         </Routes>
       </AuthProvider>
     </Router>
