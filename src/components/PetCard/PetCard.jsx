@@ -10,9 +10,11 @@ import styles from "./PetCard.module.css";
  * @param {object} props.pet - Objeto de la mascota a mostrar.
  * @param {function} props.onFeed - Función a llamar al alimentar la mascota.
  * @param {function} props.onPlay - Función a llamar al jugar con la mascota.
+ * @param {function} props.onDelete - Función a llamar al eliminar la mascota.
  * @param {boolean} props.isUpdating - Indica si la mascota está en proceso de actualización.
  */
-const PetCard = ({ pet, onFeed, onPlay, isUpdating }) => {
+const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
+  // ¡CRUCIAL! Asegúrate de que onDelete esté aquí.
   // Función para obtener la imagen de la mascota según su tipo
   const getPetImage = (type) => {
     switch (type) {
@@ -87,9 +89,15 @@ const PetCard = ({ pet, onFeed, onPlay, isUpdating }) => {
           {isUpdating ? <LoadingSpinner /> : "Jugar"}
         </Button>
       </div>
+      <Button
+        onClick={() => onDelete(pet.id)}
+        disabled={isUpdating}
+        className={styles.deleteButton}
+      >
+        {isUpdating ? <LoadingSpinner /> : "Eliminar"}
+      </Button>
     </div>
   );
 };
 
 export default PetCard;
-

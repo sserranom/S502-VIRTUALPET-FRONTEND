@@ -13,8 +13,9 @@ import styles from "./CreatePetPage.module.css";
 const createPetSchema = Yup.object().shape({
   name: Yup.string()
     .required("El nombre es obligatorio")
-    .max(50, "El nombre no puede exceder los 50 caracteres"),
-  type: Yup.string()
+    .max(50, "El nombre no puede exceder los 50 caracteres."),
+  // CORRECCIÓN: Cambiado 'type' a 'petType' para que coincida con el backend DTO
+  petType: Yup.string()
     .required("El tipo de mascota es obligatorio")
     .oneOf(
       ["DRAGON", "UNICORN", "ALIEN", "SAN_BERNARDO"],
@@ -30,18 +31,19 @@ const CreatePetPage = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      type: "", // Puedes establecer un valor por defecto si quieres
+      // CORRECCIÓN: Cambiado 'type' a 'petType' en initialValues
+      petType: "",
     },
     validationSchema: createPetSchema,
     onSubmit: async (values) => {
       setErrorMessage("");
       setSuccessMessage("");
       try {
+        // values ahora contendrá { name: "...", petType: "..." }
         const newPet = await createPet(values);
         setSuccessMessage(
           `¡Mascota "${newPet.name}" creada exitosamente! Redirigiendo...`
         );
-        // Redirige al dashboard después de un breve retraso para que el usuario vea el mensaje de éxito
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
@@ -88,17 +90,19 @@ const CreatePetPage = () => {
         />
 
         <div className={styles.selectGroup}>
-          <label htmlFor="type" className={styles.label}>
+          <label htmlFor="petType" className={styles.label}>
+            {" "}
+            {/* CORRECCIÓN: htmlFor a 'petType' */}
             Tipo de Mascota
           </label>
           <select
-            id="type"
-            name="type"
-            value={formik.values.type}
+            id="petType" // CORRECCIÓN: id a 'petType'
+            name="petType" // CORRECCIÓN: name a 'petType'
+            value={formik.values.petType}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className={`${styles.select} ${
-              formik.touched.type && formik.errors.type
+              formik.touched.petType && formik.errors.petType // CORRECCIÓN: formik.errors.petType
                 ? styles.selectError
                 : ""
             }`}
@@ -109,9 +113,12 @@ const CreatePetPage = () => {
             <option value="ALIEN">Extraterrestre</option>
             <option value="SAN_BERNARDO">San Bernardo</option>
           </select>
-          {formik.touched.type && formik.errors.type && (
-            <span className={styles.errorMessage}>{formik.errors.type}</span>
-          )}
+          {formik.touched.petType &&
+            formik.errors.petType /* CORRECCIÓN: formik.errors.petType */ && (
+              <span className={styles.errorMessage}>
+                {formik.errors.petType}
+              </span>
+            )}
         </div>
 
         {errorMessage && (
