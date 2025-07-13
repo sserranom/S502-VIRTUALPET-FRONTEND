@@ -10,7 +10,7 @@
     align-items: center;
     text-align: center;
     width: 100%; /* La tarjeta ocupa el 100% del espacio de su celda */
-    max-width: 300px; /* Mantenemos un max-width para que no se estire demasiado en pantallas gigantes */
+    max-width: 280px; /* Mantenemos un max-width para que no se estire demasiado en pantallas gigantes */
     box-sizing: border-box;
     transition: transform 0.2s ease-in-out;
   }
@@ -108,3 +108,4 @@
   .deleteButton:hover {
     background-color: #c82333;
   }
+  

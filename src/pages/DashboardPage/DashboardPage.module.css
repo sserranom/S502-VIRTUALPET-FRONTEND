@@ -1,5 +1,4 @@
 /* src/pages/DashboardPage/DashboardPage.module.css */
-
 .dashboardContainer {
   display: flex;
   flex-direction: column;
@@ -8,6 +7,8 @@
   background-color: #f0f2f5; /* Fondo más claro para el dashboard */
   min-height: 100vh;
   box-sizing: border-box;
+  width: 100%; /* ¡CRUCIAL! Asegura que el contenedor ocupe todo el ancho disponible */
+  max-width: 100%; /* Asegura que no haya un límite superior inesperado */
 }
 
 .dashboardContainer h2 {
@@ -25,12 +26,29 @@
 
 .petCardsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
-  gap: 25px;
-  justify-content: center;
-  width: 100%;
+  /* Usar auto-fit y minmax para una cuadrícula responsiva más robusta */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Tantas columnas como quepan, cada una de al menos 280px */
+  gap: 25px; /* Espacio entre las tarjetas */
+  justify-content: center; /* Centra los items de la cuadrícula horizontalmente */
+  place-items: center; /* Centra los items de la cuadrícula vertical y horizontalmente dentro de sus celdas */
+  width: 100%; /* La cuadrícula ocupa todo el ancho disponible */
   max-width: 1200px; /* Ancho máximo para la cuadrícula */
   margin-bottom: 30px;
+}
+
+/* Media query para pantallas más pequeñas (ej. tablets y móviles) */
+@media (max-width: 992px) {
+  .petCardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 2 columnas en pantallas medianas */
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .petCardsGrid {
+    grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
+    gap: 15px;
+  }
 }
 
 .loadingContainer {
@@ -84,64 +102,3 @@
 .logoutButton:hover {
   background-color: #5a6268;
 }
-
-
-
-
-/* .dashboardContainer {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .dashboardContainer h2 {
-    color: #28a745;
-    margin-bottom: 20px;
-  }
-  
-  .dashboardContainer p {
-    font-size: 1.1em;
-    color: #555;
-    margin-bottom: 15px;
-  }
-  
-  .dashboardContainer ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 15px;
-  }
-  
-  .dashboardContainer li {
-    background-color: #e9ecef;
-    border-radius: 4px;
-    padding: 8px 12px;
-    margin: 5px auto;
-    width: fit-content;
-    font-size: 0.9em;
-    color: #333;
-  }
-  
-  .dashboardContainer hr {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 25px 0;
-  }
-  
-  .dashboardContainer pre {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    padding: 15px;
-    border-radius: 5px;
-    text-align: left;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word; 
-  }
-  
-  .loading {
-    text-align: center;
-    font-size: 1.2em;
-    color: #666;
-  } */

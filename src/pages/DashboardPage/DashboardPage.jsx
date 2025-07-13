@@ -58,12 +58,23 @@ const DashboardPage = () => {
       const currentPet = pets.find((p) => p.id === petId);
       if (!currentPet) return;
 
-      const newHungerLevel = Math.max(0, currentPet.hungerLevel - 20);
-      const newMood =
-        newHungerLevel <= 20 && newHungerLevel >= 0 ? "HAPPY" : currentPet.mood;
+      // Al alimentar:
+      // 1. El hambre disminuye en 15 (min 0)
+      const newHungerLevel = Math.max(0, currentPet.hungerLevel - 15);
+      // 2. La energía aumenta en 10 (max 100)
+      const newEnergyLevel = Math.min(100, currentPet.energyLevel + 10);
+
+      // Ajuste del estado de ánimo
+      let newMood = currentPet.mood;
+      if (newHungerLevel <= 10 && newEnergyLevel >= 80) {
+        newMood = "HAPPY"; // Muy feliz si no tiene hambre y tiene mucha energía
+      } else if (newHungerLevel <= 20) {
+        newMood = "NEUTRAL"; // Si solo el hambre está baja, se siente neutral
+      }
 
       const updatedPetData = await updatePet(petId, {
         hungerLevel: newHungerLevel,
+        energyLevel: newEnergyLevel, // Incluir el nuevo nivel de energía
         mood: newMood,
       });
 
@@ -86,11 +97,25 @@ const DashboardPage = () => {
       const currentPet = pets.find((p) => p.id === petId);
       if (!currentPet) return;
 
-      const newEnergyLevel = Math.min(100, currentPet.energyLevel + 20);
-      const newMood = newEnergyLevel >= 80 ? "EXCITED" : currentPet.mood;
+      // Al jugar:
+      // 1. La energía baja en 15 (min 0)
+      const newEnergyLevel = Math.max(0, currentPet.energyLevel - 15);
+      // 2. El hambre sube en 15 (max 100)
+      const newHungerLevel = Math.min(100, currentPet.hungerLevel + 15);
+
+      // Ajuste del estado de ánimo
+      let newMood = currentPet.mood;
+      if (newEnergyLevel <= 10) {
+        newMood = "SAD"; // Muy triste si la energía es muy baja
+      } else if (newHungerLevel >= 80) {
+        newMood = "ANGRY"; // Enojado si el hambre es muy alta
+      } else if (newEnergyLevel > 50 && newHungerLevel < 50) {
+        newMood = "EXCITED"; // Emocionado si tiene buena energía y no mucha hambre
+      }
 
       const updatedPetData = await updatePet(petId, {
         energyLevel: newEnergyLevel,
+        hungerLevel: newHungerLevel,
         mood: newMood,
       });
 
@@ -163,8 +188,8 @@ const DashboardPage = () => {
               pet={pet}
               onFeed={handleFeed}
               onPlay={handlePlay}
-              onDelete={handleDelete} // ¡CRUCIAL! Asegúrate de que esta prop se pase.
-              isUpdating={updatingPetId === pet.id || deletingPetId === pet.id}
+              onDelete={handleDelete} // Pasa la función handleDelete al PetCard
+              isUpdating={updatingPetId === pet.id || deletingPetId === pet.id} // Actualizar o eliminar
             />
           ))}
         </div>
