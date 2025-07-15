@@ -1,4 +1,4 @@
-/* src/index.css */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,14 +14,19 @@ body {
   color: #333;
 }
 
-#root {
+/* #root {
   width: 100%;
- /*  max-width: 400px; */
+
   padding: 20px;
   box-sizing: border-box;
+} */
+
+:root {
+  --card-height: 65vh;
+  --card-width: calc(var(--card-height) / 1.5);
 }
 
-/* Base de formulario */
+
 form {
   background-color: #ffffff;
   padding: 30px;

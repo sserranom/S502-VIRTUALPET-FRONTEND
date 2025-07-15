@@ -4,30 +4,32 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #f0f2f5; /* Fondo más claro para el dashboard */
+  background-color: rgba(3, 3, 3, 0.562); /* Fondo más claro para el dashboard */
   min-height: 100vh;
-  box-sizing: border-box;
-  width: 100%; /* ¡CRUCIAL! Asegura que el contenedor ocupe todo el ancho disponible */
+  /* box-sizing: border-box; */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
   max-width: 100%; /* Asegura que no haya un límite superior inesperado */
 }
 
 .dashboardContainer h2 {
-  color: #007bff;
+  color: #f7f7f7;
   margin-bottom: 10px;
   font-size: 2.2em;
 }
 
 .welcomeMessage {
   font-size: 1.1em;
-  color: #555;
+  color: #d4d4d4;
   margin-bottom: 30px;
   text-align: center;
 }
 
 .petCardsGrid {
   display: grid;
-  /* Usar auto-fit y minmax para una cuadrícula responsiva más robusta */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Tantas columnas como quepan, cada una de al menos 280px */
+  /* Usar auto-fit y minmax para una cuadrícula responsiva robusta */
+  /* minmax(280px, 1fr) permite que cada columna tenga al menos 280px y se expanda. */
+  /* auto-fit intentará crear tantas columnas como quepan. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px; /* Espacio entre las tarjetas */
   justify-content: center; /* Centra los items de la cuadrícula horizontalmente */
   place-items: center; /* Centra los items de la cuadrícula vertical y horizontalmente dentro de sus celdas */
@@ -36,20 +38,22 @@
   margin-bottom: 30px;
 }
 
-/* Media query para pantallas más pequeñas (ej. tablets y móviles) */
-@media (max-width: 992px) {
+/* Media queries para ajustar el comportamiento en pantallas más pequeñas */
+@media (max-width: 992px) { /* Para pantallas medianas */
   .petCardsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* 2 columnas en pantallas medianas */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Reducir minmax para 2 columnas */
     gap: 20px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Para móviles */
   .petCardsGrid {
-    grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
+    grid-template-columns: 1fr; /* Una sola columna */
     gap: 15px;
   }
 }
+
+
 
 .loadingContainer {
   display: flex;
@@ -57,8 +61,16 @@
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  font-size: 1.2em;
+  font-size: 1.2em; 
   color: #666;
+/*   min-height: 100vh;
+  background: #212534;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box; */
 }
 
 .loadingContainer p {

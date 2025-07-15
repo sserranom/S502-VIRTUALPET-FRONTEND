@@ -1,42 +1,101 @@
-/* src/components/PetCard/PetCard.module.css */
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+  
 .card {
-    background-color: #ffffff;
+    background: #191c29;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 0; /* Eliminamos el margin aquí para que el gap de la cuadrícula lo maneje */
+    /* margin: 0;  */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: rgb(88 199 250 / 0%);
     width: 100%; /* La tarjeta ocupa el 100% del espacio de su celda */
-    max-width: 280px; /* Mantenemos un max-width para que no se estire demasiado en pantallas gigantes */
+    max-width: 300px; /* Mantenemos un max-width para que no se estire demasiado en pantallas gigantes */
     box-sizing: border-box;
     transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    
   }
   
   .card:hover {
-    transform: translateY(-5px);
+    color: rgb(88 199 250 / 100%);
+    transition: color 1s;
   }
+
+  .card:hover:before, .card:hover:after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .card::before {
+    content: "";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #3c67e3 43%, #4e00c2);
+      position: absolute;
+      z-index: -1;
+      top: -1%;
+      left: -2%;
+      animation: spin 2.5s linear infinite;
+  } 
+
+  .card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(
+      var(--rotate)
+      , #5ddcff, #3c67e3 43%, #4e00c2);
+      opacity: 1;
+    transition: opacity .5s;
+    animation: spin 2.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  } 
   
   .petName {
     font-size: 1.8em;
-    color: #333;
+    color: #ebe9e9;
     margin-bottom: 10px;
   }
   
   .petImage {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* Para hacerla circular */
-    object-fit: cover;
+    width: 230px;
+    height: 230px;
+    /* border-radius: 50%;  */
+    object-fit: contain;
     margin-bottom: 15px;
-    /* border: 3px solid #007bff; */
+    
   }
   
   .petType, .petMood {
     font-size: 0.95em;
-    color: #555;
+    color: #eeeeee;
     margin-bottom: 5px;
   }
   
@@ -55,7 +114,7 @@
   
   .levelLabel {
     font-size: 0.85em;
-    color: #444;
+    color: #e4e4e4;
     margin-bottom: 5px;
     font-weight: bold;
   }
@@ -63,10 +122,10 @@
   .progressBar {
     width: 100%;
     background-color: #e0e0e0;
-    border-radius: 5px;
+    border-radius: 25px;
     overflow: hidden;
     position: relative;
-    height: 25px;
+    height: 10px;
   }
   
   .progressFill {

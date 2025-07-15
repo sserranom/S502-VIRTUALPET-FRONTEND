@@ -18,7 +18,7 @@ const createPetSchema = Yup.object().shape({
   petType: Yup.string()
     .required("El tipo de mascota es obligatorio")
     .oneOf(
-      ["DRAGON", "UNICORN", "ALIEN", "SAN_BERNARDO"],
+      ["VEGETA", "FREZER", "KRILLIN", "GOKU"],
       "Tipo de mascota inválido"
     ), // Asegúrate de que coincida con tu PetTypeEnum
 });
@@ -108,9 +108,9 @@ const CreatePetPage = () => {
             }`}
           >
             <option value="">Selecciona un tipo</option>
-            <option value="DRAGON">Dragón</option>
-            <option value="UNICORN">Unicornio</option>
-            <option value="ALIEN">Extraterrestre</option>
+            <option value="VEGETA">Vegeta</option>
+            <option value="FREZER">Frezer</option>
+            <option value="KRILLIN">Extraterrestre</option>
             <option value="GOKU">Goku</option>
           </select>
           {formik.touched.petType &&
