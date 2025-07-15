@@ -111,7 +111,7 @@ const CreatePetPage = () => {
             <option value="DRAGON">Dragón</option>
             <option value="UNICORN">Unicornio</option>
             <option value="ALIEN">Extraterrestre</option>
-            <option value="SAN_BERNARDO">San Bernardo</option>
+            <option value="GOKU">Goku</option>
           </select>
           {formik.touched.petType &&
             formik.errors.petType /* CORRECCIÓN: formik.errors.petType */ && (

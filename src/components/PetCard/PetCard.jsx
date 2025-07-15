@@ -14,22 +14,30 @@ import styles from "./PetCard.module.css";
  * @param {boolean} props.isUpdating - Indica si la mascota está en proceso de actualización.
  */
 const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
-  // ¡CRUCIAL! Asegúrate de que onDelete esté aquí.
   // Función para obtener la imagen de la mascota según su tipo
   const getPetImage = (type) => {
+    // Las imágenes deben estar en la carpeta public/assets/ de tu proyecto frontend
+    // Por ejemplo: public/assets/goku.png, public/assets/vegeta.png, etc.
     switch (type) {
-      case "DRAGON": // Tipo de mascota: Dragón
-        return "https://placehold.co/150x150/FF5733/FFFFFF?text=DRAGON"; // Imagen de marcador de posición
-      case "UNICORN": // Tipo de mascota: Unicornio
-        return "https://placehold.co/150x150/8A2BE2/FFFFFF?text=UNICORN"; // Imagen de marcador de posición
-      case "ALIEN": // Tipo de mascota: Extraterrestre
-        return "https://placehold.co/150x150/32CD32/FFFFFF?text=ALIEN"; // Imagen de marcador de posición
-      case "SAN_BERNARDO": // Nuevo tipo de mascota: San Bernardo
-        return "https://placehold.co/150x150/A0522D/FFFFFF?text=SAN_BERNARDO"; // Imagen de marcador de posición para San Bernardo
+      case "VEGETA":
+        return "/assets/vegeta.png"; // Ruta relativa a la carpeta public
+      case "FREZER":
+        return "/assets/frezer.png"; // Ruta relativa a la carpeta public
+      case "KRILLIN": // Asegúrate de que el nombre del enum sea KRILLIN (mayúsculas)
+        return "/assets/krillin.png"; // Ruta relativa a la carpeta public
+      case "GOKU":
+        return "/assets/goku.png"; // Ruta relativa a la carpeta public
+      case "SAN_BERNARDO": // Si mantienes este tipo de mascota
+        return "/assets/san_bernardo.png"; // Asumiendo que tienes una imagen para San Bernardo
       default:
-        return "https://placehold.co/150x150/CCCCCC/FFFFFF?text=PET"; // Imagen de marcador de posición genérica
+        // Una imagen por defecto si el tipo no coincide o la imagen no se encuentra
+        return "/assets/default_pet.png"; // Asegúrate de tener esta imagen también
     }
   };
+
+  // Aseguramos que los niveles sean números válidos para el estilo CSS
+  const energyLevel = typeof pet.energyLevel === "number" ? pet.energyLevel : 0;
+  const hungerLevel = typeof pet.hungerLevel === "number" ? pet.hungerLevel : 0;
 
   return (
     <div className={styles.card}>
@@ -38,6 +46,11 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
         src={getPetImage(pet.type)}
         alt={pet.name}
         className={styles.petImage}
+        // Manejo de error para la imagen: si la imagen no carga, muestra un placeholder
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = "/assets/default_pet.png";
+        }}
       />
       <p className={styles.petType}>Tipo: {pet.type}</p>
       <p className={styles.petMood}>Ánimo: {pet.mood}</p>
@@ -49,16 +62,16 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
             <div
               className={styles.progressFill}
               style={{
-                width: `${pet.energyLevel}%`,
+                width: `${energyLevel}%`,
                 backgroundColor:
-                  pet.energyLevel > 50
+                  energyLevel > 50
                     ? "#28a745"
-                    : pet.energyLevel > 20
+                    : energyLevel > 20
                     ? "#ffc107"
                     : "#dc3545",
               }}
             ></div>
-            <span className={styles.progressText}>{pet.energyLevel}%</span>
+            <span className={styles.progressText}>{energyLevel}%</span>
           </div>
         </div>
         <div className={styles.levelBar}>
@@ -67,16 +80,16 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
             <div
               className={styles.progressFill}
               style={{
-                width: `${pet.hungerLevel}%`,
+                width: `${hungerLevel}%`,
                 backgroundColor:
-                  pet.hungerLevel < 50
+                  hungerLevel < 50
                     ? "#28a745"
-                    : pet.hungerLevel < 80
+                    : hungerLevel < 80
                     ? "#ffc107"
                     : "#dc3545",
               }}
             ></div>
-            <span className={styles.progressText}>{pet.hungerLevel}%</span>
+            <span className={styles.progressText}>{hungerLevel}%</span>
           </div>
         </div>
       </div>
