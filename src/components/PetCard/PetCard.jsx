@@ -1,7 +1,7 @@
-// src/components/PetCard/PetCard.jsx
+
 import React from "react";
-import Button from "../Button/Button"; // Reutilizamos el componente Button
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"; // Reutilizamos el componente LoadingSpinner
+import Button from "../Button/Button"; 
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"; 
 import styles from "./PetCard.module.css";
 
 /**
@@ -14,39 +14,57 @@ import styles from "./PetCard.module.css";
  * @param {boolean} props.isUpdating - Indica si la mascota está en proceso de actualización.
  */
 const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
-  // Función para obtener la imagen de la mascota según su tipo
-  const getPetImage = (type) => {
-    // Las imágenes deben estar en la carpeta public/assets/ de tu proyecto frontend
-    // Por ejemplo: public/assets/goku.png, public/assets/vegeta.png, etc.
+ 
+  const energyLevel = typeof pet.energyLevel === "number" ? pet.energyLevel : 0;
+  const hungerLevel = typeof pet.hungerLevel === "number" ? pet.hungerLevel : 0;
+
+ 
+  const getPetImage = (type, currentEnergyLevel) => {
+  
+    if (currentEnergyLevel <= 70) {
+      switch (type) {
+        case "VEGETA":
+          return "/assets/vegeta_ss.png"; 
+        case "FREZER":
+          return "/assets/frezer_ss.png"; 
+        case "KRILLIN":
+          return "/assets/krillin_full_energy.png"; 
+        case "GOKU":
+          return "/assets/goku_ss.png"; 
+        case "MR_SATAN":
+          return "/assets/mr_satan_ss.png"; 
+        default:
+          return "/assets/default_happy_pet.png"; 
+      }
+    }
+
+   
     switch (type) {
       case "VEGETA":
-        return "/assets/vegeta.png"; // Ruta relativa a la carpeta public
+        return "/assets/vegeta.png";
       case "FREZER":
-        return "/assets/frezer.png"; // Ruta relativa a la carpeta public
-      case "KRILLIN": // Asegúrate de que el nombre del enum sea KRILLIN (mayúsculas)
-        return "/assets/krillin.png"; // Ruta relativa a la carpeta public
+        return "/assets/frezer.png";
+      case "KRILLIN":
+        return "/assets/krillin.png";
       case "GOKU":
-        return "/assets/goku.png"; // Ruta relativa a la carpeta public
-      case "SAN_BERNARDO": // Si mantienes este tipo de mascota
-        return "/assets/san_bernardo.png"; // Asumiendo que tienes una imagen para San Bernardo
+        return "/assets/goku.png";
+      case "MR_SATAN":
+        return "/assets/mr_satan.png";
       default:
-        // Una imagen por defecto si el tipo no coincide o la imagen no se encuentra
-        return "/assets/default_pet.png"; // Asegúrate de tener esta imagen también
+        return "/assets/default_pet.png"; 
     }
   };
 
-  // Aseguramos que los niveles sean números válidos para el estilo CSS
-  const energyLevel = typeof pet.energyLevel === "number" ? pet.energyLevel : 0;
-  const hungerLevel = typeof pet.hungerLevel === "number" ? pet.hungerLevel : 0;
+  
 
   return (
     <div className={styles.card}>
       <h3 className={styles.petName}>{pet.name}</h3>
       <img
-        src={getPetImage(pet.type)}
+        src={getPetImage(pet.type, energyLevel)}
         alt={pet.name}
         className={styles.petImage}
-        // Manejo de error para la imagen: si la imagen no carga, muestra un placeholder
+      
         onError={(e) => {
           e.target.onerror = null;
           e.target.src = "/assets/default_pet.png";
@@ -63,12 +81,12 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
               className={styles.progressFill}
               style={{
                 width: `${energyLevel}%`,
-                backgroundColor:
+                background:
                   energyLevel > 50
-                    ? "#28a745"
+                    ? "linear-gradient(90deg, #22c55e, #16a34a)"
                     : energyLevel > 20
-                    ? "#ffc107"
-                    : "#dc3545",
+                    ? "linear-gradient(90deg, #facc15, #eab308)"
+                    : "linear-gradient(90deg, #ef4444, #b91c1c)",
               }}
             ></div>
             <span className={styles.progressText}>{energyLevel}%</span>
@@ -81,12 +99,12 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
               className={styles.progressFill}
               style={{
                 width: `${hungerLevel}%`,
-                backgroundColor:
+                background:
                   hungerLevel < 50
-                    ? "#28a745"
+                    ? "linear-gradient(90deg, #22c55e, #16a34a)"
                     : hungerLevel < 80
-                    ? "#ffc107"
-                    : "#dc3545",
+                    ? "linear-gradient(90deg, #facc15, #eab308)"
+                    : "linear-gradient(90deg, #ef4444, #b91c1c)",
               }}
             ></div>
             <span className={styles.progressText}>{hungerLevel}%</span>
@@ -95,11 +113,19 @@ const PetCard = ({ pet, onFeed, onPlay, onDelete, isUpdating }) => {
       </div>
 
       <div className={styles.actions}>
-        <Button onClick={() => onFeed(pet.id)} disabled={isUpdating}>
+        <Button
+          onClick={() => onFeed(pet.id)}
+          disabled={isUpdating}
+          className={styles.feedButton}
+        >
           {isUpdating ? <LoadingSpinner /> : "Alimentar"}
         </Button>
-        <Button onClick={() => onPlay(pet.id)} disabled={isUpdating}>
-          {isUpdating ? <LoadingSpinner /> : "Jugar"}
+        <Button
+          onClick={() => onPlay(pet.id)}
+          disabled={isUpdating}
+          className={styles.playButton}
+        >
+          {isUpdating ? <LoadingSpinner /> : "Entrenar"}
         </Button>
       </div>
       <Button

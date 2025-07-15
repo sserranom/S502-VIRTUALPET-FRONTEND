@@ -1,6 +1,6 @@
 
 .button {
-    background-color: #007bff;
+    background-color: #000000;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -13,7 +13,7 @@
   }
   
   .button:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #4458c5;
     transform: translateY(-1px);
   }
   
@@ -26,3 +26,5 @@
     background-color: #cccccc;
     cursor: not-allowed;
   }
+
+  

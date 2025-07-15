@@ -1,14 +1,14 @@
-/* src/pages/DashboardPage/DashboardPage.module.css */
+
 .dashboardContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: rgba(3, 3, 3, 0.562); /* Fondo más claro para el dashboard */
+  background-color: rgba(3, 3, 3, 0.562); 
   min-height: 100vh;
   /* box-sizing: border-box; */
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
-  max-width: 100%; /* Asegura que no haya un límite superior inesperado */
+  width: 100%; 
+  max-width: 100%; 
 }
 
 .dashboardContainer h2 {
@@ -26,29 +26,27 @@
 
 .petCardsGrid {
   display: grid;
-  /* Usar auto-fit y minmax para una cuadrícula responsiva robusta */
-  /* minmax(280px, 1fr) permite que cada columna tenga al menos 280px y se expanda. */
-  /* auto-fit intentará crear tantas columnas como quepan. */
+  
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px; /* Espacio entre las tarjetas */
-  justify-content: center; /* Centra los items de la cuadrícula horizontalmente */
-  place-items: center; /* Centra los items de la cuadrícula vertical y horizontalmente dentro de sus celdas */
-  width: 100%; /* La cuadrícula ocupa todo el ancho disponible */
-  max-width: 1200px; /* Ancho máximo para la cuadrícula */
+  gap: 25px; 
+  justify-content: center; 
+  place-items: center; 
+  width: 100%; 
+  max-width: 1200px; 
   margin-bottom: 30px;
 }
 
-/* Media queries para ajustar el comportamiento en pantallas más pequeñas */
-@media (max-width: 992px) { /* Para pantallas medianas */
+
+@media (max-width: 992px) { 
   .petCardsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Reducir minmax para 2 columnas */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
     gap: 20px;
   }
 }
 
-@media (max-width: 768px) { /* Para móviles */
+@media (max-width: 768px) { 
   .petCardsGrid {
-    grid-template-columns: 1fr; /* Una sola columna */
+    grid-template-columns: 1fr; 
     gap: 15px;
   }
 }
@@ -108,7 +106,7 @@
 }
 
 .logoutButton {
-  background-color: #6c757d; /* Color para el botón de cerrar sesión */
+  background-color: #6c757d; 
 }
 
 .logoutButton:hover {

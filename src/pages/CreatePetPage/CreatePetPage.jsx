@@ -1,26 +1,26 @@
-// src/pages/CreatePetPage/CreatePetPage.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createPet } from "../../api/pets"; // Importa la función de creación de mascotas
+import { createPet } from "../../api/pets";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import styles from "./CreatePetPage.module.css";
 
-// Esquema de validación con Yup
+
 const createPetSchema = Yup.object().shape({
   name: Yup.string()
     .required("El nombre es obligatorio")
     .max(50, "El nombre no puede exceder los 50 caracteres."),
-  // CORRECCIÓN: Cambiado 'type' a 'petType' para que coincida con el backend DTO
+ 
   petType: Yup.string()
     .required("El tipo de mascota es obligatorio")
     .oneOf(
-      ["VEGETA", "FREZER", "KRILLIN", "GOKU"],
+      ["VEGETA", "FREZER", "MR_SATAN", "GOKU"],
       "Tipo de mascota inválido"
-    ), // Asegúrate de que coincida con tu PetTypeEnum
+    ), 
 });
 
 const CreatePetPage = () => {
@@ -31,7 +31,7 @@ const CreatePetPage = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      // CORRECCIÓN: Cambiado 'type' a 'petType' en initialValues
+    
       petType: "",
     },
     validationSchema: createPetSchema,
@@ -39,7 +39,7 @@ const CreatePetPage = () => {
       setErrorMessage("");
       setSuccessMessage("");
       try {
-        // values ahora contendrá { name: "...", petType: "..." }
+       
         const newPet = await createPet(values);
         setSuccessMessage(
           `¡Mascota "${newPet.name}" creada exitosamente! Redirigiendo...`
@@ -62,13 +62,12 @@ const CreatePetPage = () => {
             displayMessage =
               "Errores de validación: " + Object.values(error).join(", ");
           }
-          // Si es un error de ResponseStatusException, BadCredentialsException, etc. (tu GlobalExceptionHandler devuelve un objeto con 'message')
-          // Ejemplo: { "timestamp": ..., "status": 400, "error": "Bad Request", "message": "El tipo de mascota no puede ser nulo." }
+          
           else if (error.message) {
             displayMessage = error.message;
           }
         } else if (typeof error === "string") {
-          // Si el error es una cadena simple
+          
           displayMessage = error;
         }
         setErrorMessage(displayMessage);
@@ -110,7 +109,7 @@ const CreatePetPage = () => {
             <option value="">Selecciona un tipo</option>
             <option value="VEGETA">Vegeta</option>
             <option value="FREZER">Frezer</option>
-            <option value="KRILLIN">Extraterrestre</option>
+            <option value="MR_SATAN">Mr Satan</option>
             <option value="GOKU">Goku</option>
           </select>
           {formik.touched.petType &&
