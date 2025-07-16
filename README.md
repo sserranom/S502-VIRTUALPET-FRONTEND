@@ -1,12 +1,76 @@
-# React + Vite
+# Virtual Pet Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+User interface for the Virtual Pet API, allowing users to interact visually and enjoyably with their virtual pets.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- User registration and login with JWT authentication.
+- Responsive dashboard showing user's pets.
+- Actions: feed, play, delete pets.
+- Create new pets with form validation.
+- Protected routes and clear error handling.
+- Modern, animated, responsive design.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies
+
+- React.js + Vite
+- React Router DOM, Context API
+- Axios, Formik, Yup
+- jwt-decode
+- CSS Modules and global CSS
+
+## Setup
+
+- Node.js 18+
+- npm or Yarn
+- Backend API running (default http://localhost:8080)
+
+## Install dependencies:
+
+`npm install`
+
+## Running the App
+
+`npm run dev`
+
+Open 
+[http://localhost:5173](http://localhost:5173) in your browser.
+
+## Project Structure
+
+- `src/api/`: backend API calls  
+- `src/components/`: reusable UI components  
+- `src/contexts/`: global state contexts  
+- `src/hooks/`: custom hooks  
+- `src/pages/`: main views  
+- `src/utils/`: helper functions  
+- `App.jsx`: main app routes and contexts  
+
+
+## Key Features
+
+- Login and registration pages  
+- Dashboard with pets and interactive actions  
+- Pet creation form  
+- Delete confirmation  
+
+
+## Styles
+
+- CSS Modules for scoped styling  
+- CSS variables for flexible design  
+- Animations and comic-style font  
+- Responsive layout  
+
+
+## Backend Communication
+
+- Requests include stored JWT  
+- User-visible error handling  
+- Optimistic UI updates  
+
+
+
+
